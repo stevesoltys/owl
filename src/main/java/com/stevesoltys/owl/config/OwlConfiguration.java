@@ -18,11 +18,35 @@ public class OwlConfiguration {
 
     private final Set<Agent> agents = new HashSet<>();
 
-    public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
+    private boolean agent;
 
+    public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
+        setComponentConfiguration(configuration);
+        setAgentConfiguration(configuration);
+    }
+
+    private void setComponentConfiguration(Map<String, Object> configuration) throws OwlConfigurationException {
+    }
+
+    private void setAgentConfiguration(Map<String, Object> configuration) throws OwlConfigurationException {
+        if (!configuration.containsKey("agent")) {
+            throw new OwlConfigurationException("Agent flag not found.");
+        }
+
+        Object agentConfiguration = configuration.get("agent");
+
+        if (!(agentConfiguration instanceof Boolean)) {
+            throw new OwlConfigurationException("Agent configuration option must be a boolean value.");
+        }
+
+        this.agent = (Boolean) agentConfiguration;
     }
 
     public Set<Agent> getAgents() {
         return agents;
+    }
+
+    public boolean isAgent() {
+        return agent;
     }
 }
