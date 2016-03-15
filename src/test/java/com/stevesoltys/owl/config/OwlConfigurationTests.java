@@ -15,7 +15,7 @@ public class OwlConfigurationTests {
     /**
      * Tests failing of {@link OwlConfiguration#initialize(Map)} when the given configuration is invalid.
      */
-    @Test(expected = OwlConfigurationException.class)
+    @Test(expected = Exception.class)
     public void testInvalidConfiguration() throws OwlConfigurationException {
         Map<String, Object> configuration = new HashMap<>();
         configuration.put("wrong", "config");
