@@ -13,27 +13,27 @@ import java.util.Map;
 public class OwlConfigurationTests {
 
     /**
-     * Tests failing of {@link OwlConfiguration#initialize(Map)} when the given configuration is invalid.
+     * Tests failing of {@link OwlAgentConfiguration#initialize(Map)} when the given configuration is invalid.
      */
     @Test(expected = Exception.class)
-    public void testInvalidConfiguration() throws OwlConfigurationException {
+    public void testInvalidAgentConfiguration() throws Exception {
         Map<String, Object> configuration = new HashMap<>();
         configuration.put("wrong", "config");
 
-        OwlConfiguration owlConfiguration = new OwlConfiguration();
-        owlConfiguration.initialize(configuration);
+        OwlAgentConfiguration agentConfiguration = new OwlAgentConfiguration();
+        agentConfiguration.initialize(configuration);
     }
 
     /**
-     * Tests {@link OwlConfiguration#initialize(Map)} when the configuration is valid.
+     * Tests {@link OwlAgentConfiguration#initialize(Map)} when the configuration is valid.
      */
     @Test
-    public void testValidConfiguration() throws OwlConfigurationException {
+    public void testValidAgentConfiguration() throws Exception {
         Map<String, Object> configuration = new HashMap<>();
         configuration.put("agent", true);
 
-        OwlConfiguration owlConfiguration = new OwlConfiguration();
-        owlConfiguration.initialize(configuration);
+        OwlAgentConfiguration agentConfiguration = new OwlAgentConfiguration();
+        agentConfiguration.initialize(configuration);
     }
 
 }
