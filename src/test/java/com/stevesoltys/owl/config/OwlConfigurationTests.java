@@ -22,22 +22,21 @@ public class OwlConfigurationTests {
     private OwlConfiguration owlConfiguration;
 
     /**
-     * Tests failing of {@link OwlComponentTypeConfiguration#initialize(Map)} when the given configuration is invalid.
+     * Tests failing of {@link OwlConfiguration#initialize(Map)} when the given configuration is invalid.
      */
     @Test(expected = Exception.class)
-    public void testInvalidComponentTypeConfiguration() throws Exception {
+    public void testInvalidConfiguration() throws Exception {
         Map<String, Object> configuration = new HashMap<>();
         configuration.put("wrong", "config");
 
-        OwlComponentTypeConfiguration componentTypeConfiguration = new OwlComponentTypeConfiguration();
-        componentTypeConfiguration.initialize(configuration);
+        owlConfiguration.initialize(configuration);
     }
 
     /**
      * Tests {@link OwlConfiguration#initialize(Map)} when the configuration is valid.
      */
     @Test
-    public void testValidComponentTypeConfiguration() throws Exception {
+    public void testValidConfiguration() throws Exception {
 
         Map<String, Object> configuration = new HashMap<>();
 
