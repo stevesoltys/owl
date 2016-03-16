@@ -13,9 +13,17 @@ import java.util.*;
 public class OwlConfiguration {
 
     @Autowired
+    private OwlComponentTypeConfiguration componentTypeConfiguration;
+
+    @Autowired
+    private OwlComponentConfiguration componentConfiguration;
+
+    @Autowired
     private OwlAgentConfiguration agentConfiguration;
 
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
+        componentTypeConfiguration.initialize(configuration);
+        componentConfiguration.initialize(configuration);
         agentConfiguration.initialize(configuration);
     }
 }
