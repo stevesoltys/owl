@@ -11,11 +11,15 @@ Configuration is  currently limited and under development. An example configurat
 ```
 {
     "component_types": [
-        {
+        { 
             "identifier": "cpu_load",
             "classpath": "com.stevesoltys.owl.model.component.CPULoadComponent",
             "controller_classpath": "com.stevesoltys.owl.controller.component.CPULoadComponentController"
         }
+    ],
+
+    "components": [
+        { "identifier": "cpu_load", "update_interval": "1" }
     ],
 
     "agent": true
