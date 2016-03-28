@@ -40,6 +40,8 @@ nb-configuration.xml
 gradle-app.setting
 build/
 gradle/
+gradlew
+gradlew.bat
 
 ## OS Specific
 .DS_Store
