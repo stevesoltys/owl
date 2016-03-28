@@ -2,6 +2,8 @@ package com.stevesoltys.owl.model.component;
 
 import com.stevesoltys.owl.model.component.OwlComponent;
 
+import java.util.Map;
+
 /**
  * @author Steve Soltys
  */

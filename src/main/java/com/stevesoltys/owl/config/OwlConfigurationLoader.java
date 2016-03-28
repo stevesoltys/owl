@@ -19,7 +19,6 @@ public class OwlConfigurationLoader {
     @Autowired
     private OwlConfiguration configuration;
 
-    @PostConstruct
     public void initialize() throws OwlConfigurationException {
 
         File configurationDirectory = new File(OWL_CONFIGURATION_DIRECTORY);

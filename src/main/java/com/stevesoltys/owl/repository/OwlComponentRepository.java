@@ -20,19 +20,25 @@ public class OwlComponentRepository {
 
     private final Set<OwlComponent> components = new HashSet<>();
 
-    public void registerComponent(String name) throws OwlComponentException {
+    public OwlComponent registerComponent(String name) throws OwlComponentException {
 
         Optional<Class<? extends OwlComponent>> componentType = componentTypeRepository.getComponentClass(name);
 
         if(!componentType.isPresent()) {
-            throw new OwlComponentException("Could not find component type named: " + name);
+            throw new OwlComponentException("Could not find component type with identifier: " + name);
         }
 
         try {
-            components.add(componentType.get().newInstance());
+            OwlComponent component = componentType.get().newInstance();
+            components.add(component);
+
+            return component;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new OwlComponentException("Could not create new component instance: " + e.getMessage());
         }
     }
 
+    public Set<OwlComponent> getComponents() {
+        return components;
+    }
 }

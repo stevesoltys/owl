@@ -32,5 +32,8 @@ public class OwlComponentControllerRepository {
         }
     }
 
+    public OwlComponentController getController(OwlComponent component) {
+        return controllers.get(component.getClass());
+    }
 
 }
