@@ -40,8 +40,10 @@ public class OwlConfigurationTests {
 
         Map<String, Object> configuration = new HashMap<>();
 
+        // Agent flag
         configuration.put("agent", true);
 
+        // Component types
         List<Map<String, String>> componentTypeList = new LinkedList<>();
 
         Map<String, String> componentType = new HashMap<>();
@@ -51,6 +53,15 @@ public class OwlConfigurationTests {
 
         componentTypeList.add(componentType);
         configuration.put("component_types", componentTypeList);
+
+        // Component instances
+        List<Map<String, String>> components = new LinkedList<>();
+        Map<String, String> component = new HashMap<>();
+        component.put("identifier", "cpu_load");
+        component.put("update_interval", "1");
+        components.add(component);
+
+        configuration.put("components", components);
 
         owlConfiguration.initialize(configuration);
     }
