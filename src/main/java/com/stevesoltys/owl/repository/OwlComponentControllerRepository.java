@@ -9,13 +9,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A {@link Repository} which stores {@link OwlComponentController}s.
+ *
  * @author Steve Soltys
  */
 @Repository
 public class OwlComponentControllerRepository {
 
+    /**
+     * A map of {@link OwlComponent} classes to their {@link OwlComponentController}s.
+     */
     private final Map<Class<? extends OwlComponent>, OwlComponentController> controllers = new HashMap<>();
 
+    /**
+     * Registers a controller type to the given component type.
+     *
+     * @param componentType The component type.
+     * @param controllerType The controller type.
+     * @throws OwlComponentException If there is already a component of that type or an instance could not be created.
+     */
     public void registerController(Class<? extends OwlComponent> componentType,
                                    Class<? extends OwlComponentController> controllerType) throws OwlComponentException {
 
@@ -32,6 +44,12 @@ public class OwlComponentControllerRepository {
         }
     }
 
+    /**
+     * Gets the controller for a component, given its instance.
+     *
+     * @param component The component instance.
+     * @return The controller for the given component.
+     */
     public OwlComponentController getController(OwlComponent component) {
         return controllers.get(component.getClass());
     }

@@ -1,29 +1,37 @@
 package com.stevesoltys.owl.config;
 
-import com.stevesoltys.owl.controller.component.OwlComponentController;
 import com.stevesoltys.owl.exception.OwlComponentException;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.component.OwlComponent;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
-import com.stevesoltys.owl.repository.OwlComponentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
+ * The {@link OwlComponent} configuration class.
+ *
  * @author Steve Soltys
  */
 @Component
 public class OwlComponentConfiguration {
 
+    /**
+     * The configuration key for {@link OwlComponent} configuration.
+     */
     private static final String CONFIGURATION_KEY = "components";
 
     @Autowired
     private OwlComponentRepository componentRepository;
 
+    /**
+     * Initializes the instances of components from the given configuration.
+     *
+     * @param configuration The configuration.
+     * @throws OwlConfigurationException If a component could not be registered.
+     */
     @SuppressWarnings("unchecked")
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
 

@@ -1,15 +1,12 @@
 package com.stevesoltys.owl.service;
 
 import com.stevesoltys.owl.controller.component.OwlComponentController;
-import com.stevesoltys.owl.model.component.CPULoadComponent;
 import com.stevesoltys.owl.model.component.OwlComponent;
 import com.stevesoltys.owl.repository.OwlComponentControllerRepository;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 

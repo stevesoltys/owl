@@ -1,10 +1,10 @@
 package com.stevesoltys.owl.model.component;
 
-import com.stevesoltys.owl.model.component.OwlComponent;
-
-import java.util.Map;
+import com.stevesoltys.owl.model.agent.Agent;
 
 /**
+ * A component which contains the current CPU load of an {@link Agent}.
+ *
  * @author Steve Soltys
  */
 public class CPULoadComponent extends OwlComponent {
