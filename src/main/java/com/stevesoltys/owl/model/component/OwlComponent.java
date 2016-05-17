@@ -3,6 +3,8 @@ package com.stevesoltys.owl.model.component;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.agent.Agent;
 
+import java.sql.Time;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public abstract class OwlComponent {
     /**
      * A date containing the last time that this component was updated.
      */
-    private Date lastUpdate = new Date();
+    private Date lastUpdate = Time.from(Instant.now());
 
     /**
      * Initializes this OwlComponent instance using the given configuration.

@@ -10,6 +10,13 @@ import com.stevesoltys.owl.model.component.OwlComponent;
 public abstract class OwlComponentController<T extends OwlComponent> {
 
     /**
+     * A function that is used to initialize a component.
+     *
+     * @param component The component instance.
+     */
+    public abstract void initialize(T component);
+
+    /**
      * A function that is called when it is time for a component to be updated.
      *
      * @param component The component instance.

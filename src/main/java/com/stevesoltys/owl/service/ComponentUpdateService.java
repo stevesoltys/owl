@@ -41,9 +41,11 @@ public class ComponentUpdateService {
     public void initialize() {
 
         for (OwlComponent component : componentRepository.getComponents()) {
-            OwlComponentController controller = controllerRepository.getController(component);
 
-            taskExecutor.scheduleAtFixedRate((Runnable) () -> controller.update(component), 0,
+            OwlComponentController controller = controllerRepository.getController(component);
+            controller.initialize(component);
+
+            taskExecutor.scheduleAtFixedRate(() -> controller.update(component), 0,
                     component.getUpdateInterval(), TimeUnit.SECONDS);
         }
     }
