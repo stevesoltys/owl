@@ -5,6 +5,7 @@
 hs_err_pid*
 
 ## Intellij
+out/
 .idea/
 *.ipr
 *.iws
