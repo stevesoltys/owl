@@ -3,19 +3,18 @@ package com.stevesoltys.owl.config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
+ * Tests the {@link OwlConfiguration} modules.
+ *
  * @author Steve Soltys
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@SpringApplicationConfiguration(classes = OwlConfigurationTestsContext.class)
 public class OwlConfigurationTests {
 
     @Autowired
@@ -44,33 +43,27 @@ public class OwlConfigurationTests {
         configuration.put("agent", true);
 
         // Component types
-        List<Map<String, String>> componentTypeList = new LinkedList<>();
-
         Map<String, String> componentType = new HashMap<>();
+
         componentType.put("identifier", "cpu_load");
         componentType.put("classpath", "com.stevesoltys.owl.model.component.CPULoadComponent");
         componentType.put("controller_classpath", "com.stevesoltys.owl.controller.component.CPULoadComponentController");
 
-        componentTypeList.add(componentType);
-        configuration.put("component_types", componentTypeList);
+        configuration.put("component_types", Collections.singletonList(componentType));
 
         // Component instances
-        List<Map<String, String>> components = new LinkedList<>();
         Map<String, String> component = new HashMap<>();
         component.put("identifier", "cpu_load");
         component.put("update_interval", "1");
-        components.add(component);
 
-        configuration.put("components", components);
+        configuration.put("components", Collections.singletonList(component));
 
         // Agent instances
-        List<Map<String, String>> agents = new LinkedList<>();
         Map<String, String> agent = new HashMap<>();
         agent.put("address", "localhost:8080");
         agent.put("update_interval", "1");
-        agents.add(agent);
 
-        configuration.put("agents", agents);
+        configuration.put("agents", Collections.singletonList(agent));
 
         owlConfiguration.initialize(configuration);
     }

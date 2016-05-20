@@ -23,8 +23,15 @@ public class OwlComponentConfiguration {
      */
     private static final String CONFIGURATION_KEY = "components";
 
-    @Autowired
+    /**
+     * The component repository.
+     */
     private OwlComponentRepository componentRepository;
+
+    @Autowired
+    public OwlComponentConfiguration(OwlComponentRepository componentRepository) {
+        this.componentRepository = componentRepository;
+    }
 
     /**
      * Initializes the instances of components from the given configuration.

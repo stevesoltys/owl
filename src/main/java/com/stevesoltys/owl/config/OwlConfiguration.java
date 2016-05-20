@@ -7,20 +7,44 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
+ * A class that is used to initialize the configuration modules.
+ *
  * @author Steve Soltys
  */
 @Component
 public class OwlConfiguration {
 
-    @Autowired
-    private OwlComponentTypeConfiguration componentTypeConfiguration;
+    /**
+     * The component type configuration.
+     */
+    private final OwlComponentTypeConfiguration componentTypeConfiguration;
+
+    /**
+     * The component configuration.
+     */
+    private final OwlComponentConfiguration componentConfiguration;
+
+    /**
+     * The agent configuration.
+     */
+    private final OwlAgentConfiguration agentConfiguration;
 
     @Autowired
-    private OwlComponentConfiguration componentConfiguration;
+    public OwlConfiguration(OwlComponentTypeConfiguration componentTypeConfiguration,
+                            OwlComponentConfiguration componentConfiguration,
+                            OwlAgentConfiguration agentConfiguration) {
 
-    @Autowired
-    private OwlAgentConfiguration agentConfiguration;
+        this.componentTypeConfiguration = componentTypeConfiguration;
+        this.componentConfiguration = componentConfiguration;
+        this.agentConfiguration = agentConfiguration;
+    }
 
+    /**
+     * Initializes the different configuration modules, given the configuration map.
+     *
+     * @param configuration The configuration map.
+     * @throws OwlConfigurationException If an error occurs while parsing the configuration.
+     */
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
         componentTypeConfiguration.initialize(configuration);
         componentConfiguration.initialize(configuration);

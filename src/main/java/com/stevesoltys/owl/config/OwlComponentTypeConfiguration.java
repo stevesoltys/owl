@@ -18,13 +18,27 @@ import java.util.Map;
 @Component
 public class OwlComponentTypeConfiguration {
 
+    /**
+     * The configuration key for component types.
+     */
     private static final String CONFIGURATION_KEY = "component_types";
 
-    @Autowired
-    private OwlComponentTypeRepository componentTypeRepository;
+    /**
+     * The component type repository.
+     */
+    private final OwlComponentTypeRepository componentTypeRepository;
+
+    /**
+     * The component controller repository.
+     */
+    private final OwlComponentControllerRepository componentControllerRepository;
 
     @Autowired
-    private OwlComponentControllerRepository componentControllerRepository;
+    public OwlComponentTypeConfiguration(OwlComponentTypeRepository typeRepository,
+                                         OwlComponentControllerRepository controllerRepository) {
+        this.componentTypeRepository = typeRepository;
+        this.componentControllerRepository = controllerRepository;
+    }
 
     @SuppressWarnings("unchecked")
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
