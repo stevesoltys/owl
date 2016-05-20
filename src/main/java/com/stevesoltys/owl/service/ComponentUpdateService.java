@@ -21,18 +21,28 @@ public class ComponentUpdateService {
     /**
      * The size of the thread pool. Set to the number of available processors.
      */
-    private final int THREAD_POOL_SIZE = Runtime.getRuntime().availableProcessors();
+    private static final int THREAD_POOL_SIZE = Runtime.getRuntime().availableProcessors();
 
     /**
      * The scheduled task executor for this service.
      */
-    private final ScheduledThreadPoolExecutor taskExecutor = new ScheduledThreadPoolExecutor(THREAD_POOL_SIZE);
+    private static final ScheduledThreadPoolExecutor taskExecutor = new ScheduledThreadPoolExecutor(THREAD_POOL_SIZE);
+
+    /**
+     * The component repository.
+     */
+    private final OwlComponentRepository componentRepository;
+
+    /**
+     * The component controller repository.
+     */
+    private final OwlComponentControllerRepository controllerRepository;
 
     @Autowired
-    private OwlComponentRepository componentRepository;
-
-    @Autowired
-    private OwlComponentControllerRepository controllerRepository;
+    public ComponentUpdateService(OwlComponentRepository componentRepository, OwlComponentControllerRepository controllerRepository) {
+        this.componentRepository = componentRepository;
+        this.controllerRepository = controllerRepository;
+    }
 
     /**
      * Iterates through each registered component and schedules an update task for that component at the given interval.

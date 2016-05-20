@@ -16,6 +16,9 @@
     <bean id="agentConfiguration" class="com.stevesoltys.owl.config.OwlAgentConfiguration">
     </bean>
 
+    <bean id="agentRepository" class="com.stevesoltys.owl.repository.AgentRepository">
+    </bean>
+
     <bean id="componentControllerRepository" class="com.stevesoltys.owl.repository.OwlComponentControllerRepository">
     </bean>
 

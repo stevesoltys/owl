@@ -11,7 +11,7 @@ Configuration is  currently limited and under development. An example configurat
 ```
 {
     "component_types": [
-        { 
+        {
             "identifier": "cpu_load",
             "classpath": "com.stevesoltys.owl.model.component.CPULoadComponent",
             "controller_classpath": "com.stevesoltys.owl.controller.component.CPULoadComponentController"
@@ -22,6 +22,11 @@ Configuration is  currently limited and under development. An example configurat
         { "identifier": "cpu_load", "update_interval": "1" }
     ],
 
+    "agents": [
+        { "address": "http://127.0.0.1:8080", "update_interval": "1" }
+    ],
+
     "agent": true
 }
+
 ```

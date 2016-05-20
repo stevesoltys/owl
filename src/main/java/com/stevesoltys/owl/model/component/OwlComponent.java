@@ -1,5 +1,6 @@
 package com.stevesoltys.owl.model.component;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.agent.Agent;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author Steve Soltys
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class OwlComponent {
 
     /**

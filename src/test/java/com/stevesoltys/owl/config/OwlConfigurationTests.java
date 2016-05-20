@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Steve Soltys
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration()
+@ContextConfiguration
 public class OwlConfigurationTests {
 
     @Autowired
@@ -62,6 +62,15 @@ public class OwlConfigurationTests {
         components.add(component);
 
         configuration.put("components", components);
+
+        // Agent instances
+        List<Map<String, String>> agents = new LinkedList<>();
+        Map<String, String> agent = new HashMap<>();
+        agent.put("address", "localhost:8080");
+        agent.put("update_interval", "1");
+        agents.add(agent);
+
+        configuration.put("agents", agents);
 
         owlConfiguration.initialize(configuration);
     }

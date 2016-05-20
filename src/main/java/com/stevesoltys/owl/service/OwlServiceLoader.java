@@ -14,11 +14,15 @@ public class OwlServiceLoader {
     @Autowired
     private ComponentUpdateService componentUpdateService;
 
+    @Autowired
+    private AgentUpdateService agentUpdateService;
+
     /**
      * Initializes all necessary services.
      */
     public void initialize() {
         componentUpdateService.initialize();
+        agentUpdateService.initialize();
     }
 
 }

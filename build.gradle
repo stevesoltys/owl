@@ -25,10 +25,15 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-batch")
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-configuration-processor")
     compile("org.hsqldb:hsqldb")
     compile("com.google.code.gson:gson")
+    compile("com.google.guava:guava:19.0")
+    compile("net.sf.flexjson:flexjson:3.3")
     testCompile("org.springframework:spring-test")
+    testCompile("org.hamcrest:hamcrest-library")
+    testCompile("com.jayway.jsonpath:json-path")
     testCompile("junit:junit")
 }
 

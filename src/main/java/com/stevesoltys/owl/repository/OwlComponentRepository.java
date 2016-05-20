@@ -17,13 +17,20 @@ import java.util.Set;
 @Repository
 public class OwlComponentRepository {
 
-    @Autowired
-    private OwlComponentTypeRepository componentTypeRepository;
+    /**
+     * The component type repository.
+     */
+    private final OwlComponentTypeRepository componentTypeRepository;
 
     /**
      * The set of components currently in the repository.
      */
     private final Set<OwlComponent> components = new HashSet<>();
+
+    @Autowired
+    public OwlComponentRepository(OwlComponentTypeRepository componentTypeRepository) {
+        this.componentTypeRepository = componentTypeRepository;
+    }
 
     /**
      * Registers a component, given its identifier.
