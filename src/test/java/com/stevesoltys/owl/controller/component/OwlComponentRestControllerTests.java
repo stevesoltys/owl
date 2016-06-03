@@ -1,5 +1,6 @@
 package com.stevesoltys.owl.controller.component;
 
+import com.stevesoltys.owl.controller.OwlComponentRestController;
 import com.stevesoltys.owl.model.component.CPULoadComponent;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import org.junit.Before;

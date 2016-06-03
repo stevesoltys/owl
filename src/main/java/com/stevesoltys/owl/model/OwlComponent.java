@@ -1,8 +1,7 @@
-package com.stevesoltys.owl.model.component;
+package com.stevesoltys.owl.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
-import com.stevesoltys.owl.model.agent.Agent;
 
 import java.sql.Time;
 import java.time.Instant;

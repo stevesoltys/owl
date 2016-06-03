@@ -1,7 +1,7 @@
 package com.stevesoltys.owl.repository;
 
 import com.stevesoltys.owl.exception.OwlComponentException;
-import com.stevesoltys.owl.model.component.OwlComponent;
+import com.stevesoltys.owl.model.OwlComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

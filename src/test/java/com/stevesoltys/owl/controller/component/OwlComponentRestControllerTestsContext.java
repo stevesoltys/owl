@@ -1,5 +1,6 @@
 package com.stevesoltys.owl.controller.component;
 
+import com.stevesoltys.owl.controller.OwlComponentRestController;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import com.stevesoltys.owl.repository.OwlComponentTypeRepository;
 import org.springframework.context.annotation.Bean;

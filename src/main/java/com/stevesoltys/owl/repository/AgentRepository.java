@@ -1,6 +1,6 @@
 package com.stevesoltys.owl.repository;
 
-import com.stevesoltys.owl.model.agent.Agent;
+import com.stevesoltys.owl.model.Agent;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;

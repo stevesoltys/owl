@@ -1,6 +1,6 @@
-package com.stevesoltys.owl.controller.component;
+package com.stevesoltys.owl.controller;
 
-import com.stevesoltys.owl.model.component.OwlComponentSet;
+import com.stevesoltys.owl.model.OwlComponentSet;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

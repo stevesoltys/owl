@@ -1,13 +1,24 @@
 package com.stevesoltys.owl.service;
 
-import com.stevesoltys.owl.controller.component.OwlComponentRestController;
-import com.stevesoltys.owl.model.agent.Agent;
-import com.stevesoltys.owl.model.component.OwlComponentSet;
+import com.stevesoltys.owl.controller.OwlComponentRestController;
+import com.stevesoltys.owl.exception.OwlAgentException;
+import com.stevesoltys.owl.model.Account;
+import com.stevesoltys.owl.model.Agent;
+import com.stevesoltys.owl.model.OwlComponent;
+import com.stevesoltys.owl.model.OwlComponentSet;
 import com.stevesoltys.owl.repository.AgentRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -44,22 +55,50 @@ public class AgentUpdateService {
      */
     public void initialize() {
 
-        RestTemplate restTemplate = new RestTemplate();
-
         for (Agent agent : agentRepository.getAgents()) {
 
             taskExecutor.scheduleAtFixedRate(() -> {
 
                 // Fetch and update the component set for the current agent.
 
-                String address = agent.getAddress() + OwlComponentRestController.COMPONENTS_MAPPING;
-                OwlComponentSet componentSet = restTemplate.getForObject(address, OwlComponentSet.class);
+                try {
+                    Set<OwlComponent> owlComponents = requestComponents(agent);
 
-                agent.getComponents().clear();
-                agent.getComponents().addAll(componentSet.getComponents());
+                    agent.getComponents().clear();
+                    agent.getComponents().addAll(owlComponents);
+
+                } catch (HttpClientErrorException | ResourceAccessException e) {
+                    new OwlAgentException(e.getMessage()).printStackTrace();
+                }
 
             }, 0, agent.getUpdateInterval(), TimeUnit.SECONDS);
         }
+    }
+
+    /**
+     * Performs a GET request on the given agent using basic HTTP authentication and returns the {@link OwlComponent}s.
+     *
+     * @param agent The agent.
+     * @return The set of owl components.
+     */
+    private Set<OwlComponent> requestComponents(Agent agent) {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        Account account = agent.getAccount();
+
+        String credentials = account.getUsername() + ":" + account.getPassword();
+        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + encodedCredentials);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        String address = agent.getAddress() + OwlComponentRestController.COMPONENTS_MAPPING;
+
+        ResponseEntity<OwlComponentSet> response = restTemplate.exchange(address, HttpMethod.GET, request, OwlComponentSet.class);
+
+        return response.getBody().getComponents();
     }
 
 }

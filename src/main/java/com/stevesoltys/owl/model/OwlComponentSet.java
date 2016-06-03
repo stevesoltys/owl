@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.model.component;
+package com.stevesoltys.owl.model;
 
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 

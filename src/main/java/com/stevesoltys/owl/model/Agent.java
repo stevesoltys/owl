@@ -1,6 +1,4 @@
-package com.stevesoltys.owl.model.agent;
-
-import com.stevesoltys.owl.model.component.OwlComponent;
+package com.stevesoltys.owl.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,12 +21,18 @@ public class Agent {
     private final String address;
 
     /**
+     * The account that is used to authenticate with this agent.
+     */
+    private final Account account;
+
+    /**
      * The interval in seconds between updates for this agent.
      */
     private final long updateInterval;
 
-    public Agent(String address, long updateInterval) {
+    public Agent(String address, Account account, long updateInterval) {
         this.address = address;
+        this.account = account;
         this.updateInterval = updateInterval;
     }
 
@@ -48,6 +52,15 @@ public class Agent {
      */
     public String getAddress() {
         return address;
+    }
+
+    /**
+     * Gets the account that is used to authenticate with this agent.
+     *
+     * @return The account.
+     */
+    public Account getAccount() {
+        return account;
     }
 
     /**

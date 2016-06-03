@@ -1,7 +1,8 @@
 package com.stevesoltys.owl.controller.component;
 
+import com.stevesoltys.owl.controller.OwlComponentController;
 import com.stevesoltys.owl.model.component.CPULoadComponent;
-import com.stevesoltys.owl.model.component.OwlComponentState;
+import com.stevesoltys.owl.model.OwlComponentState;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;

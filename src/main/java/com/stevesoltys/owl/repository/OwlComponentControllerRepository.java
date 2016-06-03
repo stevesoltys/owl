@@ -1,8 +1,8 @@
 package com.stevesoltys.owl.repository;
 
-import com.stevesoltys.owl.controller.component.OwlComponentController;
+import com.stevesoltys.owl.controller.OwlComponentController;
 import com.stevesoltys.owl.exception.OwlComponentException;
-import com.stevesoltys.owl.model.component.OwlComponent;
+import com.stevesoltys.owl.model.OwlComponent;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

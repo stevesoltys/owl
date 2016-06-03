@@ -1,7 +1,7 @@
 package com.stevesoltys.owl.service;
 
-import com.stevesoltys.owl.controller.component.OwlComponentController;
-import com.stevesoltys.owl.model.component.OwlComponent;
+import com.stevesoltys.owl.controller.OwlComponentController;
+import com.stevesoltys.owl.model.OwlComponent;
 import com.stevesoltys.owl.repository.OwlComponentControllerRepository;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
 package com.stevesoltys.owl.model.component;
 
-import com.stevesoltys.owl.model.agent.Agent;
+import com.stevesoltys.owl.model.Agent;
+import com.stevesoltys.owl.model.OwlComponent;
 
 /**
  * A component which contains the current CPU load of an {@link Agent}.

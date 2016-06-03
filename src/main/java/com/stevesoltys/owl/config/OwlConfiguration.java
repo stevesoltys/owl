@@ -27,16 +27,23 @@ public class OwlConfiguration {
     /**
      * The agent configuration.
      */
-    private final OwlAgentConfiguration agentConfiguration;
+    private final AgentConfiguration agentConfiguration;
+
+    /**
+     * The account configuration.
+     */
+    private final AccountConfiguration accountConfiguration;
 
     @Autowired
     public OwlConfiguration(OwlComponentTypeConfiguration componentTypeConfiguration,
                             OwlComponentConfiguration componentConfiguration,
-                            OwlAgentConfiguration agentConfiguration) {
+                            AgentConfiguration agentConfiguration,
+                            AccountConfiguration accountConfiguration) {
 
         this.componentTypeConfiguration = componentTypeConfiguration;
         this.componentConfiguration = componentConfiguration;
         this.agentConfiguration = agentConfiguration;
+        this.accountConfiguration = accountConfiguration;
     }
 
     /**
@@ -49,5 +56,6 @@ public class OwlConfiguration {
         componentTypeConfiguration.initialize(configuration);
         componentConfiguration.initialize(configuration);
         agentConfiguration.initialize(configuration);
+        accountConfiguration.initialize(configuration);
     }
 }

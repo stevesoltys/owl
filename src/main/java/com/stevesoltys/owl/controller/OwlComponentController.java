@@ -1,6 +1,6 @@
-package com.stevesoltys.owl.controller.component;
+package com.stevesoltys.owl.controller;
 
-import com.stevesoltys.owl.model.component.OwlComponent;
+import com.stevesoltys.owl.model.OwlComponent;
 
 /**
  * A controller for a type of {@link OwlComponent}.

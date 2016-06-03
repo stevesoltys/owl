@@ -39,9 +39,6 @@ public class OwlConfigurationTests {
 
         Map<String, Object> configuration = new HashMap<>();
 
-        // Agent flag
-        configuration.put("agent", true);
-
         // Component types
         Map<String, String> componentType = new HashMap<>();
 
@@ -62,8 +59,17 @@ public class OwlConfigurationTests {
         Map<String, String> agent = new HashMap<>();
         agent.put("address", "localhost:8080");
         agent.put("update_interval", "1");
+        agent.put("username", "username");
+        agent.put("password", "password");
 
         configuration.put("agents", Collections.singletonList(agent));
+
+        // Account instances
+        Map<String, String> account = new HashMap<>();
+        account.put("username", "username");
+        account.put("password", "password");
+
+        configuration.put("accounts", Collections.singletonList(account));
 
         owlConfiguration.initialize(configuration);
     }
