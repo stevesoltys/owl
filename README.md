@@ -3,12 +3,12 @@
 
 Owl is a systems and network monitoring application written in Java using Spring.
 
-# Configuration
+## Configuration
 By default, Owl will look for a JSON configuration file in your home directory: ```$HOME/.config/owl/config.json```.
 
-Configuration is  currently limited and under development. An example configuration file can be seen below:
+An example configuration file can be seen below:
 
-```
+```json
 {
     "component_types": [
         {
@@ -23,10 +23,28 @@ Configuration is  currently limited and under development. An example configurat
     ],
 
     "agents": [
-        { "address": "http://127.0.0.1:8080", "update_interval": "1" }
+        {
+            "address": "http://127.0.0.1:8080",
+            "username": "username",
+            "password": "password",
+            "update_interval": "1"
+        }
     ],
 
-    "agent": true
+    "accounts": [
+        { "username": "username", "password": "password" }
+    ]
 }
-
 ```
+
+## Development
+After checking out the repo, run `gradle build` to install dependencies and build the project. Then, run `gradle test`
+to run the tests. You can run `gradle run` to start the application.
+
+## Contributing
+Bug reports and pull requests are welcome on GitHub at https://github.com/stevesoltys/owl. This project is intended to
+be a safe, welcoming space for collaboration, and contributors are expected to adhere to the
+[Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## License
+This application is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
