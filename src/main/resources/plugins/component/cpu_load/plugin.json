@@ -1,0 +1,8 @@
+{
+  "name": "cpu_load",
+  "description": "Registers a component which monitors CPU load.",
+  "type": "ruby",
+  "scripts": [
+    "cpu_load.rb"
+  ]
+}

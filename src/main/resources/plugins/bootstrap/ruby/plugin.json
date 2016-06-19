@@ -6,7 +6,6 @@
     "bootstrap.rb",
     "component/component_state.rb",
     "component/component.rb",
-    "component/controller.rb",
-    "native/native.rb"
+    "component/controller.rb"
   ]
 }
