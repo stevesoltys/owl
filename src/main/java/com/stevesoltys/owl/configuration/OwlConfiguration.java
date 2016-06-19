@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,6 @@ import java.util.*;
  */
 @Component
 public class OwlConfiguration {
-
-    /**
-     * The component type configuration.
-     */
-    private final OwlComponentTypeConfiguration componentTypeConfiguration;
 
     /**
      * The component configuration.
@@ -35,12 +30,10 @@ public class OwlConfiguration {
     private final AccountConfiguration accountConfiguration;
 
     @Autowired
-    public OwlConfiguration(OwlComponentTypeConfiguration componentTypeConfiguration,
-                            OwlComponentConfiguration componentConfiguration,
+    public OwlConfiguration(OwlComponentConfiguration componentConfiguration,
                             AgentConfiguration agentConfiguration,
                             AccountConfiguration accountConfiguration) {
 
-        this.componentTypeConfiguration = componentTypeConfiguration;
         this.componentConfiguration = componentConfiguration;
         this.agentConfiguration = agentConfiguration;
         this.accountConfiguration = accountConfiguration;
@@ -53,7 +46,6 @@ public class OwlConfiguration {
      * @throws OwlConfigurationException If an error occurs while parsing the configuration.
      */
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
-        componentTypeConfiguration.initialize(configuration);
         componentConfiguration.initialize(configuration);
         agentConfiguration.initialize(configuration);
         accountConfiguration.initialize(configuration);

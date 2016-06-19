@@ -1,5 +1,6 @@
 package com.stevesoltys.owl.service;
 
+import com.google.common.collect.Multimap;
 import com.stevesoltys.owl.controller.OwlComponentController;
 import com.stevesoltys.owl.model.OwlComponent;
 import com.stevesoltys.owl.repository.OwlComponentControllerRepository;
@@ -49,15 +50,23 @@ public class ComponentUpdateService {
      */
     @SuppressWarnings("unchecked")
     public void initialize() {
+        Multimap<String, OwlComponent> components = componentRepository.getComponentMap();
 
-        for (OwlComponent component : componentRepository.getComponents()) {
+        components.keySet().stream().forEach(identifier -> components.get(identifier).stream().forEach(component -> {
 
-            OwlComponentController controller = controllerRepository.getController(component);
-            controller.initialize(component);
+            OwlComponentController controller = controllerRepository.getController(identifier);
+            controller.init(component);
 
-            taskExecutor.scheduleAtFixedRate(() -> controller.update(component), 0,
-                    component.getUpdateInterval(), TimeUnit.SECONDS);
-        }
+            taskExecutor.scheduleAtFixedRate(() -> {
+
+                try {
+                    controller.update(component);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }, 0, component.getUpdateInterval(), TimeUnit.SECONDS);
+        }));
     }
 
 }

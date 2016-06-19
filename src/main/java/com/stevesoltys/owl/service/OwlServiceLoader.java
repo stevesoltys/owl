@@ -11,11 +11,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class OwlServiceLoader {
 
-    @Autowired
-    private ComponentUpdateService componentUpdateService;
+    /**
+     * The component update service.
+     */
+    private final ComponentUpdateService componentUpdateService;
+
+    /**
+     * The agent update service.
+     */
+    private final AgentUpdateService agentUpdateService;
 
     @Autowired
-    private AgentUpdateService agentUpdateService;
+    public OwlServiceLoader(ComponentUpdateService componentUpdateService, AgentUpdateService agentUpdateService) {
+        this.componentUpdateService = componentUpdateService;
+        this.agentUpdateService = agentUpdateService;
+    }
 
     /**
      * Initializes all necessary services.

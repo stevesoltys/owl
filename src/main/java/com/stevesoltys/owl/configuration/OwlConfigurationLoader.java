@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;

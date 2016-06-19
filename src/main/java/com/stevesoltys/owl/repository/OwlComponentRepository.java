@@ -1,13 +1,16 @@
 package com.stevesoltys.owl.repository;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.stevesoltys.owl.exception.OwlComponentException;
+import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.OwlComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * A {@link Repository} which stores {@link OwlComponent}s.
@@ -20,16 +23,16 @@ public class OwlComponentRepository {
     /**
      * The component type repository.
      */
-    private final OwlComponentTypeRepository componentTypeRepository;
+    private final OwlComponentAttributeRepository componentAttributeRepository;
 
     /**
      * The set of components currently in the repository.
      */
-    private final Set<OwlComponent> components = new HashSet<>();
+    private final Multimap<String, OwlComponent> components = HashMultimap.create();
 
     @Autowired
-    public OwlComponentRepository(OwlComponentTypeRepository componentTypeRepository) {
-        this.componentTypeRepository = componentTypeRepository;
+    public OwlComponentRepository(OwlComponentAttributeRepository componentAttributeRepository) {
+        this.componentAttributeRepository = componentAttributeRepository;
     }
 
     /**
@@ -39,22 +42,29 @@ public class OwlComponentRepository {
      * @return The component instance.
      * @throws OwlComponentException If a component with the identifier could not be found, or could not be initialized.
      */
-    public OwlComponent registerComponent(String identifier) throws OwlComponentException {
+    @SuppressWarnings("unchecked")
+    public OwlComponent registerComponent(String identifier, Map<String, Object> configuration)
+            throws OwlComponentException, OwlConfigurationException {
 
-        Optional<Class<? extends OwlComponent>> componentType = componentTypeRepository.getComponentClass(identifier);
+        Optional<Map> attributes = componentAttributeRepository.getComponentAttributes(identifier);
 
-        if(!componentType.isPresent()) {
+        if (!attributes.isPresent()) {
             throw new OwlComponentException("Could not find component type with identifier: " + identifier);
         }
 
-        try {
-            OwlComponent component = componentType.get().newInstance();
-            components.add(component);
+        OwlComponent component = new OwlComponent(configuration, attributes.get());
+        components.put(identifier, component);
 
-            return component;
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new OwlComponentException("Could not create new component instance: " + e.getMessage());
-        }
+        return component;
+    }
+
+    /**
+     * Gets the map of components in this repository.
+     *
+     * @return The map of components.
+     */
+    public Multimap<String, OwlComponent> getComponentMap() {
+        return components;
     }
 
     /**
@@ -62,7 +72,7 @@ public class OwlComponentRepository {
      *
      * @return The set of components.
      */
-    public Set<OwlComponent> getComponents() {
-        return components;
+    public Collection<OwlComponent> getComponents() {
+        return components.values();
     }
 }

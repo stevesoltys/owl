@@ -1,7 +1,7 @@
 package com.stevesoltys.owl.controller.component;
 
 import com.stevesoltys.owl.controller.OwlComponentRestController;
-import com.stevesoltys.owl.model.component.CPULoadComponent;
+import com.stevesoltys.owl.model.OwlComponent;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class OwlComponentRestControllerTests {
     /**
      * The content type that is used for the REST service.
      */
-    private static final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+    private static final MediaType CONTENT_TYPE = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     /**
@@ -61,11 +61,10 @@ public class OwlComponentRestControllerTests {
      * @throws Exception If there is an error setting up the test environment.
      */
     @Before
-    public void setup() throws Exception {
+    public void initialize() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        componentRepository.getComponents().clear();
-        componentRepository.getComponents().add(new CPULoadComponent());
+        componentRepository.getComponentMap().put("mock_component", new OwlComponent());
     }
 
     /**
@@ -79,10 +78,11 @@ public class OwlComponentRestControllerTests {
 
         mockMvc.perform(get(OwlComponentRestController.COMPONENTS_MAPPING)).
                 andExpect(status().isOk()).
-                andExpect(content().contentType(contentType)).
+                andExpect(content().contentType(CONTENT_TYPE)).
                 andExpect(jsonPath("$['components']", hasSize(componentRepository.getComponents().size()))).
                 andExpect(jsonPath("$['components'][0].lastUpdate", notNullValue())).
                 andExpect(jsonPath("$['components'][0].state", notNullValue())).
-                andExpect(jsonPath("$['components'][0].updateInterval", notNullValue()));
+                andExpect(jsonPath("$['components'][0].updateInterval", notNullValue())).
+                andExpect(jsonPath("$['components'][0].attributes", notNullValue()));
     }
 }

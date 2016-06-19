@@ -19,39 +19,32 @@ public class OwlComponentControllerRepository {
     /**
      * A map of {@link OwlComponent} classes to their {@link OwlComponentController}s.
      */
-    private final Map<Class<? extends OwlComponent>, OwlComponentController> controllers = new HashMap<>();
+    private final Map<String, OwlComponentController> controllers = new HashMap<>();
 
     /**
      * Registers a controller type to the given component type.
      *
-     * @param componentType The component type.
-     * @param controllerType The controller type.
+     * @param identifier The component identifier.
+     * @param controller The controller.
      * @throws OwlComponentException If there is already a component of that type or an instance could not be created.
      */
-    public void registerController(Class<? extends OwlComponent> componentType,
-                                   Class<? extends OwlComponentController> controllerType) throws OwlComponentException {
+    public void registerController(String identifier, OwlComponentController controller) throws OwlComponentException {
 
-        if (controllers.containsKey(componentType)) {
+        if (controllers.containsKey(identifier)) {
             throw new OwlComponentException("A controller for the given component type has already been registered.");
         }
 
-        try {
-            OwlComponentController controller = controllerType.newInstance();
-
-            controllers.put(componentType, controller);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new OwlComponentException("Could not create new component controller instance: " + e.getMessage());
-        }
+        controllers.put(identifier, controller);
     }
 
     /**
      * Gets the controller for a component, given its instance.
      *
-     * @param component The component instance.
+     * @param identifier The component identifier.
      * @return The controller for the given component.
      */
-    public OwlComponentController getController(OwlComponent component) {
-        return controllers.get(component.getClass());
+    public OwlComponentController getController(String identifier) {
+        return controllers.get(identifier);
     }
 
 }

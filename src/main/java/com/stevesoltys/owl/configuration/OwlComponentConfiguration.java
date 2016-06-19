@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.exception.OwlComponentException;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
@@ -24,6 +24,11 @@ public class OwlComponentConfiguration {
     private static final String CONFIGURATION_KEY = "components";
 
     /**
+     * The configuration key for an {@link OwlComponent} identifier.
+     */
+    private static final String IDENTIFIER_KEY = "identifier";
+
+    /**
      * The component repository.
      */
     private OwlComponentRepository componentRepository;
@@ -46,9 +51,9 @@ public class OwlComponentConfiguration {
 
         for (Map<String, Object> componentConfiguration : componentTypeList) {
             try {
-                String identifier = (String) componentConfiguration.get("identifier");
+                String identifier = (String) componentConfiguration.get(IDENTIFIER_KEY);
 
-                componentRepository.registerComponent(identifier).init(componentConfiguration);
+                componentRepository.registerComponent(identifier, componentConfiguration);
             } catch (ClassCastException | OwlComponentException e) {
                 throw new OwlConfigurationException("Could not register component: " + e.getMessage());
             }

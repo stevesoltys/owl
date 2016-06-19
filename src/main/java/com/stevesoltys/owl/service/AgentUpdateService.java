@@ -14,8 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Set;
@@ -67,8 +65,9 @@ public class AgentUpdateService {
                     agent.getComponents().clear();
                     agent.getComponents().addAll(owlComponents);
 
-                } catch (HttpClientErrorException | ResourceAccessException e) {
+                } catch (Exception e) {
                     new OwlAgentException(e.getMessage()).printStackTrace();
+                    e.printStackTrace();
                 }
 
             }, 0, agent.getUpdateInterval(), TimeUnit.SECONDS);

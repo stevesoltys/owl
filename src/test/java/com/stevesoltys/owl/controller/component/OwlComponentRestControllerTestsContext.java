@@ -2,7 +2,7 @@ package com.stevesoltys.owl.controller.component;
 
 import com.stevesoltys.owl.controller.OwlComponentRestController;
 import com.stevesoltys.owl.repository.OwlComponentRepository;
-import com.stevesoltys.owl.repository.OwlComponentTypeRepository;
+import com.stevesoltys.owl.repository.OwlComponentAttributeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -17,8 +17,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class OwlComponentRestControllerTestsContext {
 
     @Bean
-    public OwlComponentTypeRepository componentTypeRepository() {
-        return new OwlComponentTypeRepository();
+    public OwlComponentAttributeRepository componentTypeRepository() {
+        return new OwlComponentAttributeRepository();
     }
 
     @Bean

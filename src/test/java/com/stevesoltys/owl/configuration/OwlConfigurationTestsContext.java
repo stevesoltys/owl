@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.repository.*;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,7 @@ public class OwlConfigurationTestsContext {
 
     @Bean
     public OwlConfiguration owlConfiguration() {
-        return new OwlConfiguration(owlComponentTypeConfiguration(), componentConfiguration(), agentConfiguration(),
-                accountConfiguration());
+        return new OwlConfiguration(componentConfiguration(), agentConfiguration(), accountConfiguration());
     }
 
     @Bean
@@ -24,19 +23,13 @@ public class OwlConfigurationTestsContext {
     }
 
     @Bean
-    public OwlComponentTypeConfiguration owlComponentTypeConfiguration() {
-        return new OwlComponentTypeConfiguration(componentTypeRepository(), componentControllerRepository());
-    }
-
-
-    @Bean
-    public OwlComponentTypeRepository componentTypeRepository() {
-        return new OwlComponentTypeRepository();
+    public OwlComponentAttributeRepository componentAttributeRepository() {
+        return new OwlComponentAttributeRepository();
     }
 
     @Bean
     public OwlComponentRepository componentRepository() {
-        return new OwlComponentRepository(componentTypeRepository());
+        return new OwlComponentRepository(componentAttributeRepository());
     }
 
     @Bean

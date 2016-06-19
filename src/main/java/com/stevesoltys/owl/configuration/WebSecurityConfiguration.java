@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.model.Account;
 import com.stevesoltys.owl.repository.AccountRepository;

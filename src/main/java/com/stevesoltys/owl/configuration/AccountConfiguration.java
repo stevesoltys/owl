@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.Account;
@@ -48,6 +48,7 @@ public class AccountConfiguration {
      * @param configuration The configuration map.
      * @throws OwlConfigurationException If there is an error in the given configuration.
      */
+    @SuppressWarnings("unchecked")
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
         try {
             List<Map<String, String>> accounts = (List<Map<String, String>>) configuration.get(ACCOUNT_LIST_KEY);

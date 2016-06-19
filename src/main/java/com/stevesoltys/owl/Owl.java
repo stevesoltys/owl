@@ -1,7 +1,8 @@
 package com.stevesoltys.owl;
 
-import com.stevesoltys.owl.config.OwlConfigurationLoader;
-import com.stevesoltys.owl.service.ComponentUpdateService;
+import com.stevesoltys.owl.configuration.OwlConfigurationLoader;
+import com.stevesoltys.owl.configuration.PluginConfigurationLoader;
+import com.stevesoltys.owl.plugin.PluginEnvironmentLoader;
 import com.stevesoltys.owl.service.OwlServiceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,10 +21,18 @@ public class Owl implements CommandLineRunner {
     private OwlConfigurationLoader configurationLoader;
 
     @Autowired
+    private PluginConfigurationLoader pluginConfigurationLoader;
+
+    @Autowired
+    private PluginEnvironmentLoader pluginEnvironmentLoader;
+
+    @Autowired
     private OwlServiceLoader serviceLoader;
 
     @Override
     public void run(String... args) throws Exception {
+        pluginConfigurationLoader.initialize();
+        pluginEnvironmentLoader.initialize();
         configurationLoader.initialize();
         serviceLoader.initialize();
     }

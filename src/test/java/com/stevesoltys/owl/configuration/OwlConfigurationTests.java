@@ -1,12 +1,19 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
+import com.stevesoltys.owl.exception.OwlComponentException;
+import com.stevesoltys.owl.repository.OwlComponentAttributeRepository;
+import com.stevesoltys.owl.repository.OwlComponentRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Tests the {@link OwlConfiguration} modules.
@@ -15,10 +22,28 @@ import java.util.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OwlConfigurationTestsContext.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class OwlConfigurationTests {
 
+    /**
+     * The owl configuration.
+     */
     @Autowired
     private OwlConfiguration owlConfiguration;
+
+    /**
+     * The mocked component attribute repository.
+     */
+    @Autowired
+    private OwlComponentAttributeRepository componentAttributeRepository;
+
+    /**
+     * Sets up the mocked {@link OwlComponentRepository} and {@link OwlComponentAttributeRepository} instances.
+     */
+    @Before
+    public void initialize() throws OwlComponentException {
+        componentAttributeRepository.registerComponentType("mock_component", new HashMap<>());
+    }
 
     /**
      * Tests failing of {@link OwlConfiguration#initialize(Map)} when the given configuration is invalid.
@@ -39,33 +64,24 @@ public class OwlConfigurationTests {
 
         Map<String, Object> configuration = new HashMap<>();
 
-        // Component types
-        Map<String, String> componentType = new HashMap<>();
-
-        componentType.put("identifier", "cpu_load");
-        componentType.put("classpath", "com.stevesoltys.owl.model.component.CPULoadComponent");
-        componentType.put("controller_classpath", "com.stevesoltys.owl.controller.component.CPULoadComponentController");
-
-        configuration.put("component_types", Collections.singletonList(componentType));
-
         // Component instances
-        Map<String, String> component = new HashMap<>();
-        component.put("identifier", "cpu_load");
-        component.put("update_interval", "1");
+        Map<String, Object> component = new HashMap<>();
+        component.put("identifier", "mock_component");
+        component.put("update_interval", 1.0);
 
         configuration.put("components", Collections.singletonList(component));
 
         // Agent instances
-        Map<String, String> agent = new HashMap<>();
+        Map<String, Object> agent = new HashMap<>();
         agent.put("address", "localhost:8080");
-        agent.put("update_interval", "1");
+        agent.put("update_interval", 1.0);
         agent.put("username", "username");
         agent.put("password", "password");
 
         configuration.put("agents", Collections.singletonList(agent));
 
         // Account instances
-        Map<String, String> account = new HashMap<>();
+        Map<String, Object> account = new HashMap<>();
         account.put("username", "username");
         account.put("password", "password");
 

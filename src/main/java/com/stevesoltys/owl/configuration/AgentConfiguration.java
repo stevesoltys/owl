@@ -1,4 +1,4 @@
-package com.stevesoltys.owl.config;
+package com.stevesoltys.owl.configuration;
 
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 import com.stevesoltys.owl.model.Account;
@@ -63,9 +63,9 @@ public class AgentConfiguration {
     public void initialize(Map<String, Object> configuration) throws OwlConfigurationException {
 
         try {
-            List<Map<String, String>> agents = (List<Map<String, String>>) configuration.get(AGENT_LIST_KEY);
+            List<Map<String, Object>> agents = (List<Map<String, Object>>) configuration.get(AGENT_LIST_KEY);
 
-            for (Map<String, String> agentConfiguration : agents) {
+            for (Map<String, Object> agentConfiguration : agents) {
 
                 if (!agentConfiguration.containsKey(ADDRESS_KEY)) {
                     throw new OwlConfigurationException("An agent in the configuration does not contain an address.");
@@ -77,13 +77,13 @@ public class AgentConfiguration {
                     throw new OwlConfigurationException("An agent in the configuration does not contain an update interval.");
                 }
 
-                String address = agentConfiguration.get(ADDRESS_KEY);
+                String address = (String) agentConfiguration.get(ADDRESS_KEY);
 
-                String username = agentConfiguration.get(USERNAME_KEY);
-                String password = agentConfiguration.get(PASSWORD_KEY);
+                String username = (String) agentConfiguration.get(USERNAME_KEY);
+                String password = (String) agentConfiguration.get(PASSWORD_KEY);
                 Account account = new Account(username, password);
 
-                long updateInterval = Long.parseLong(agentConfiguration.get(UPDATE_INTERVAL_KEY));
+                long updateInterval = ((Double) agentConfiguration.get(UPDATE_INTERVAL_KEY)).longValue();
 
                 Agent agent = new Agent(address, account, updateInterval);
                 agentRepository.getAgents().add(agent);

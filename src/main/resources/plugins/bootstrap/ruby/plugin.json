@@ -1,0 +1,12 @@
+{
+  "name": "ruby_bootstrap",
+  "description": "Bootstraps the Ruby plugin environment..",
+  "type": "ruby_bootstrap",
+  "scripts": [
+    "bootstrap.rb",
+    "component/component_state.rb",
+    "component/component.rb",
+    "component/controller.rb",
+    "native/native.rb"
+  ]
+}

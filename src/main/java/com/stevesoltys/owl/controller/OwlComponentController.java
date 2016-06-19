@@ -14,7 +14,7 @@ public abstract class OwlComponentController<T extends OwlComponent> {
      *
      * @param component The component instance.
      */
-    public abstract void initialize(T component);
+    public abstract void init(T component);
 
     /**
      * A function that is called when it is time for a component to be updated.

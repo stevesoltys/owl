@@ -36,5 +36,4 @@ public class OwlComponentRestController {
     public OwlComponentSet serveComponents() {
         return new OwlComponentSet(componentRepository);
     }
-
 }

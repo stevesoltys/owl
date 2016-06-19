@@ -1,11 +1,11 @@
 package com.stevesoltys.owl.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.stevesoltys.owl.exception.OwlConfigurationException;
 
 import java.sql.Time;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,8 +13,17 @@ import java.util.Map;
  *
  * @author Steve Soltys
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public abstract class OwlComponent {
+public final class OwlComponent {
+
+    /**
+     * The configuration map for this component.
+     */
+    private final Map<String, Object> configuration = new HashMap<>();
+
+    /**
+     * The attributes map for this component.
+     */
+    private final Map<String, Object> attributes = new HashMap<>();
 
     /**
      * The interval in seconds between updates for this component.
@@ -32,24 +41,59 @@ public abstract class OwlComponent {
     private Date lastUpdate = Time.from(Instant.now());
 
     /**
-     * Initializes this OwlComponent instance using the given configuration.
+     * Empty constructor, for deserialization.
+     */
+    public OwlComponent() {
+    }
+
+    /**
+     * Constructs an owl component.
      *
-     * @param configuration The configuration.
+     * @param configuration The configuration map.
+     * @param attributes The attributes map.
      * @throws OwlConfigurationException If an error occurs while initializing with the given configuration.
      */
-    public void init(Map<String, Object> configuration) throws OwlConfigurationException {
+    public OwlComponent(Map<String, Object> configuration, Map<String, Object> attributes) throws OwlConfigurationException {
+        this.configuration.putAll(configuration);
+        this.attributes.putAll(attributes);
 
-        // TODO: Put this stuff somewhere else?
+        initializeConfiguration();
+    }
+
+    /**
+     * Initializes this OwlComponent instance.
+     *
+     * @throws OwlConfigurationException If an error occurs while initializing with the given configuration.
+     */
+    private void initializeConfiguration() throws OwlConfigurationException {
 
         if(!configuration.containsKey("update_interval")) {
             throw new OwlConfigurationException("Could not find update interval for component: " + this);
         }
 
         try {
-            updateInterval = Long.parseLong(configuration.get("update_interval").toString());
+            updateInterval = ((Double) configuration.get("update_interval")).longValue();
         } catch(NumberFormatException ex) {
             throw new OwlConfigurationException("Could not cast update interval to long: " + ex.getMessage());
         }
+    }
+
+    /**
+     * Gets the configuration map for this component.
+     *
+     * @return The configuration map.
+     */
+    public Map<String, Object> getConfiguration() {
+        return configuration;
+    }
+
+    /**
+     * Gets the attribute map for this component.
+     *
+     * @return The attribute map.
+     */
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     /**
