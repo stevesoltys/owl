@@ -10,31 +10,68 @@ An example configuration file can be seen below:
 
 ```json
 {
-    "component_types": [
-        {
-            "identifier": "cpu_load",
-            "classpath": "com.stevesoltys.owl.model.component.CPULoadComponent",
-            "controller_classpath": "com.stevesoltys.owl.controller.component.CPULoadComponentController"
-        }
-    ],
-
     "components": [
-        { "identifier": "cpu_load", "update_interval": "1" }
+        { "identifier": "cpu_load", "update_interval": 1, "warning_threshold": 4.0, "critical_threshold": 5.0 }
     ],
 
     "agents": [
-        {
-            "address": "http://127.0.0.1:8080",
-            "username": "username",
-            "password": "password",
-            "update_interval": "1"
-        }
+        { "address": "http://127.0.0.1:8080", "update_interval": 1, "username": "username", "password": "password" }
     ],
 
     "accounts": [
         { "username": "username", "password": "password" }
     ]
 }
+
+```
+
+## Plugins
+Owl relies upon plugins for monitoring components. Generally, component plugins are written using the provided domain
+specific language.
+
+Here's an example using JRuby, the CPU load monitoring plugin:
+
+```ruby
+# A module containing the CPU load monitoring plugin.
+module CPULoadModule
+
+  java_import 'java.lang.management.ManagementFactory'
+
+  # The identifier for this plugin.
+  IDENTIFIER = 'cpu_load'
+
+  # A hash containing the attributes for this plugin.
+  ATTRIBUTES = {
+      :load => 0.0
+  }.freeze
+
+  # The component controller for this plugin.
+  CONTROLLER = create_component_controller do
+
+    # The critical threshold configuration key.
+    CRITICAL_THRESHOLD = 'critical_threshold'
+
+    # The warning threshold configuration key.
+    WARNING_THRESHOLD = 'warning_threshold'
+
+    # The operating system bean instance.
+    OPERATING_SYSTEM = ManagementFactory::get_operating_system_mx_bean
+
+    on :update do |cpu|
+      cpu.load = OPERATING_SYSTEM.system_load_average
+      cpu.state = cpu_state(cpu)
+    end
+
+    def cpu_state(cpu)
+      return ComponentState::CRITICAL if cpu.load >= cpu.configuration[CRITICAL_THRESHOLD]
+      return ComponentState::WARNING if cpu.load >= cpu.configuration[WARNING_THRESHOLD]
+
+      return ComponentState::OK
+    end
+  end
+
+  register_component_type(IDENTIFIER, CONTROLLER, ATTRIBUTES)
+end
 ```
 
 ## Development
